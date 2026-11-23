@@ -230,17 +230,18 @@
     .sprinkles { position: relative; }
 
     /* Soft-pink band with a plaster-wall texture: <section class="pink-abstract"> (name kept so existing markup still works).
-       The texture sits on a layer behind the content at 90% opacity; "multiply" tints it pink, so only the grain shows. */
+       Pink is the base colour; the texture sits on top with "multiply", so its white turns pink and only the grain shows.
+       wall-texture-strong.webp is a higher-contrast copy of wall-texture.webp (the original is too pale to see). Tweak the strength with opacity. */
     .pink-abstract {
         position: relative; isolation: isolate; overflow: hidden;
         background-color: var(--color-rose-100);
     }
     .pink-abstract::before {
         content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-        background: url('/images/wall-texture.webp') repeat;
+        background: url('/images/wall-texture-strong.webp') repeat;
         background-size: 800px auto;
         mix-blend-mode: multiply;
-        opacity: .9;
+        opacity: .25;
     }
 
     /* Dark footer with soft abstract shapes (pink glow, blob, rings, wavy line): <div class="dark-abstract"> */
