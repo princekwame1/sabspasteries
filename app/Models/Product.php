@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
+use App\Support\Thumb;
 use Illuminate\Support\Str;
 
 class Product extends Model
@@ -27,7 +28,10 @@ class Product extends Model
         static::deleting(function (Product $p) {
             $p->image_path && Storage::disk('public')->delete($p->image_path);
             $p->images->each(fn ($img) => Storage::disk('public')->delete($img->path));
+            Thumb::forget($p->image_path);
+            $p->images->each(fn ($img) => Thumb::forget($img->path));
         });
+        static::saved(fn (Product $p) => Thumb::refresh($p, 'image_path'));
     }
 
     public function getRouteKeyName(): string
@@ -58,6 +62,12 @@ class Product extends Model
     public function imageUrl(): string
     {
         return $this->image_path ? asset('storage/'.$this->image_path) : asset('images/placeholder.svg');
+    }
+
+    /** Small version for cards. */
+    public function thumbUrl(): string
+    {
+        return Thumb::url($this->image_path, $this->imageUrl());
     }
 
     /** "From £45" / "£30 per box of 12" / "Price on request". */

@@ -26,7 +26,7 @@
                             <video src="{{ $item->url() }}#t=0.5" muted playsinline preload="metadata" class="w-full" onmouseenter="this.play()" onmouseleave="this.pause()"></video>
                             <span class="absolute left-1/2 top-1/2 grid size-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-rose-600"><x-icon name="play" class="size-5" /></span>
                         @else
-                            <img src="{{ $item->url() }}" alt="{{ $item->caption }}" loading="lazy" decoding="async" class="w-full transition duration-700 group-hover:scale-105">
+                            <img src="{{ $item->thumbUrl() }}" alt="{{ $item->caption }}" loading="lazy" decoding="async" class="w-full transition duration-700 group-hover:scale-105">
                         @endif
                         @if ($item->caption)
                             <span class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-cocoa-950/70 to-transparent p-4 pt-10 text-sm text-white opacity-0 transition group-hover:opacity-100">{{ $item->caption }}</span>

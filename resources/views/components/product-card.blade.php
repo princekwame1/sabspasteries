@@ -2,7 +2,7 @@
 <article {{ $attributes->merge(['class' => 'group relative']) }}>
     <a href="{{ route('menu.show', $product) }}" class="block">
         <div class="overflow-hidden rounded-3xl bg-sand">
-            <img src="{{ $product->imageUrl() }}" alt="{{ $product->name }}" loading="lazy" decoding="async"
+            <img src="{{ $product->thumbUrl() }}" alt="{{ $product->name }}" loading="lazy" decoding="async"
                 class="aspect-square w-full object-cover transition duration-500 group-hover:scale-[1.03]">
         </div>
         <div class="mt-4 px-1 text-center">

@@ -90,7 +90,7 @@
                 <div class="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
                     @foreach ($categories->values() as $i => $category)
                         <a href="{{ route('menu', ['category' => $category->slug]) }}" class="group relative block h-56 overflow-hidden rounded-3xl bg-sand sm:h-72 {{ $i === 0 ? $firstSpan : '' }}" data-reveal style="--delay: {{ ($i % 4) * 60 }}ms">
-                            <img src="{{ $category->imageUrl() }}" alt="" loading="lazy" class="absolute inset-0 size-full object-cover transition duration-700 group-hover:scale-[1.03]">
+                            <img src="{{ $category->thumbUrl() }}" alt="" loading="lazy" class="absolute inset-0 size-full object-cover transition duration-700 group-hover:scale-[1.03]">
                             <span class="absolute inset-0 bg-linear-to-t from-cocoa-950/70 via-cocoa-950/10 to-transparent"></span>
                             <span class="absolute inset-x-0 bottom-0 p-5">
                                 <span class="block text-xl font-semibold leading-tight text-white">{{ $category->name }}</span>
@@ -152,7 +152,7 @@
                         @foreach ($gallery as $item)
                             <a href="{{ route('gallery') }}" @if ($clone) aria-hidden="true" tabindex="-1" data-marquee-clone @endif class="group block w-60 shrink-0 pr-4 sm:w-72 lg:w-80">
                                 <span class="block overflow-hidden rounded-3xl bg-sand">
-                                    <img src="{{ $item->url() }}" alt="{{ $clone ? '' : $item->caption }}" loading="lazy" class="aspect-square w-full object-cover transition duration-700 group-hover:scale-[1.04]">
+                                    <img src="{{ $item->thumbUrl() }}" alt="{{ $clone ? '' : $item->caption }}" loading="lazy" class="aspect-square w-full object-cover transition duration-700 group-hover:scale-[1.04]">
                                 </span>
                             </a>
                         @endforeach

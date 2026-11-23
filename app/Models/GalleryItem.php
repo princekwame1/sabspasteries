@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
+use App\Support\Thumb;
 
 /** A photo or short video in the gallery. */
 class GalleryItem extends Model
@@ -19,7 +20,11 @@ class GalleryItem extends Model
 
     protected static function booted(): void
     {
-        static::deleted(fn (GalleryItem $g) => Storage::disk('public')->delete($g->path));
+        static::deleted(function (GalleryItem $g) {
+            Storage::disk('public')->delete($g->path);
+            Thumb::forget($g->path);
+        });
+        static::saved(fn (GalleryItem $g) => Thumb::refresh($g, 'path'));
     }
 
     public function scopePublished(Builder $query): Builder
@@ -35,6 +40,12 @@ class GalleryItem extends Model
     public function url(): string
     {
         return asset('storage/'.$this->path);
+    }
+
+    /** Small version for grids (videos have none). */
+    public function thumbUrl(): string
+    {
+        return Thumb::url($this->path, $this->url());
     }
 
     public function isVideo(): bool

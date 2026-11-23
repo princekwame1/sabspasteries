@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
- * Sabs Pastries' own photos and videos (database/seeders/media), arranged into a starter menu and gallery.
+ * Sabs Pastries' own photos (database/seeders/media), arranged into a starter menu and gallery.
  * Prices are left blank ("Price on request") until the owner adds them. Safe to run again: rows match by slug/path.
  */
 class DatabaseSeeder extends Seeder
@@ -106,11 +106,6 @@ class DatabaseSeeder extends Seeder
         foreach ($gallery as $i => [$file, $category, $caption, $featured]) {
             GalleryItem::updateOrCreate(['path' => $this->media($file, 'gallery')], [
                 'kind' => 'photo', 'caption' => $caption, 'category_id' => $categories[$category]->id, 'is_featured' => $featured, 'sort' => $i, 'is_published' => true,
-            ]);
-        }
-        foreach (['video-1', 'video-2'] as $i => $file) {
-            GalleryItem::updateOrCreate(['path' => $this->media($file, 'gallery', 'mp4')], [
-                'kind' => 'video', 'caption' => null, 'is_featured' => false, 'sort' => 100 + $i, 'is_published' => true,
             ]);
         }
 

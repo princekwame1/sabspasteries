@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
+use App\Support\Thumb;
 
 /** A menu section: Celebration cakes, Cupcakes, Bento boxes... */
 class Category extends Model
@@ -19,7 +20,11 @@ class Category extends Model
 
     protected static function booted(): void
     {
-        static::deleted(fn (Category $c) => $c->image_path && Storage::disk('public')->delete($c->image_path));
+        static::deleted(function (Category $c) {
+            $c->image_path && Storage::disk('public')->delete($c->image_path);
+            Thumb::forget($c->image_path);
+        });
+        static::saved(fn (Category $c) => Thumb::refresh($c, 'image_path'));
     }
 
     public function getRouteKeyName(): string
@@ -51,5 +56,13 @@ class Category extends Model
         $path = $this->products()->whereNotNull('image_path')->orderBy('sort')->value('image_path');
 
         return $path ? asset('storage/'.$path) : asset('images/placeholder.svg');
+    }
+
+    /** Small version for tiles. */
+    public function thumbUrl(): string
+    {
+        $path = $this->image_path ?: $this->products()->whereNotNull('image_path')->orderBy('sort')->value('image_path');
+
+        return $path ? Thumb::url($path, asset('storage/'.$path)) : asset('images/placeholder.svg');
     }
 }

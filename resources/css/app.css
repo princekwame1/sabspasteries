@@ -229,10 +229,18 @@
     /* Old sprinkles pattern: switched off, class kept so markup still works */
     .sprinkles { position: relative; }
 
-    /* Plain soft-pink band, no decorative shapes: <section class="pink-abstract"> (name kept so existing markup still works) */
+    /* Soft-pink band with a plaster-wall texture: <section class="pink-abstract"> (name kept so existing markup still works).
+       The texture sits on a layer behind the content at 60% opacity; "multiply" tints it pink, so only the grain shows. */
     .pink-abstract {
-        position: relative; overflow: hidden;
+        position: relative; isolation: isolate; overflow: hidden;
         background-color: var(--color-rose-100);
+    }
+    .pink-abstract::before {
+        content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+        background: url('/images/wall-texture.webp') repeat;
+        background-size: 800px auto;
+        mix-blend-mode: multiply;
+        opacity: .6;
     }
 
     /* Dark footer with soft abstract shapes (pink glow, blob, rings, wavy line): <div class="dark-abstract"> */

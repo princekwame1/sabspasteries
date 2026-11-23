@@ -29,16 +29,14 @@
         .no-preloader #preloader{display:none}
         #preloader.is-done{opacity:0;visibility:hidden}
         #preloader .pl-ring{position:relative;display:grid;place-items:center;width:11rem;height:11rem}
-        #preloader .pl-ring::before{content:'';position:absolute;inset:0;border-radius:50%;border:3px solid #ffc2de;border-top-color:#fa0379;border-right-color:#82c20b;animation:pl-spin 1.1s linear infinite}
         #preloader .pl-ring img{width:6.5rem;height:auto;animation:pl-pulse 1.6s ease-in-out infinite}
         #preloader .pl-dots{display:flex;justify-content:center;gap:.5rem;margin-top:1.75rem}
         #preloader .pl-dots span{width:.55rem;height:.55rem;border-radius:50%;background:#fa0379;animation:pl-bounce 1s ease-in-out infinite}
         #preloader .pl-dots span:nth-child(2){background:#82c20b;animation-delay:.15s}
         #preloader .pl-dots span:nth-child(3){background:#ff8fc2;animation-delay:.3s}
-        @keyframes pl-spin{to{transform:rotate(360deg)}}
         @keyframes pl-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
         @keyframes pl-bounce{0%,80%,100%{transform:translateY(0);opacity:.5}40%{transform:translateY(-8px);opacity:1}}
-        @media (prefers-reduced-motion:reduce){#preloader *,#preloader *::before{animation:none!important}}
+        @media (prefers-reduced-motion:reduce){#preloader *{animation:none!important}}
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $pageTitle }}</title>
