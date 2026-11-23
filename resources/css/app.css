@@ -1,0 +1,307 @@
+@import 'tailwindcss';
+
+/*
+ * Self-hosted fonts from public/fonts (fixed URLs so the layout can preload them).
+ *   Cormorant Garamond: headings (with true italics for accent words)
+ *   Great Vibes: script accents (small headings above titles)
+ *   Jost: body text, buttons and navigation
+ */
+@font-face {
+    font-family: 'Cormorant Garamond Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 300 700;
+    src: url('/fonts/cormorant-garamond-latin-wght-normal.woff2') format('woff2-variations');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+    font-family: 'Cormorant Garamond Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 300 700;
+    src: url('/fonts/cormorant-garamond-latin-ext-wght-normal.woff2') format('woff2-variations');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+    font-family: 'Cormorant Garamond Variable';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 300 700;
+    src: url('/fonts/cormorant-garamond-latin-wght-italic.woff2') format('woff2-variations');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+    font-family: 'Cormorant Garamond Variable';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 300 700;
+    src: url('/fonts/cormorant-garamond-latin-ext-wght-italic.woff2') format('woff2-variations');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+    font-family: 'Great Vibes';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url('/fonts/great-vibes-latin-400-normal.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+    font-family: 'Great Vibes';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url('/fonts/great-vibes-latin-ext-400-normal.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+    font-family: 'Jost Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    src: url('/fonts/jost-latin-wght-normal.woff2') format('woff2-variations');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+    font-family: 'Jost Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    src: url('/fonts/jost-latin-ext-wght-normal.woff2') format('woff2-variations');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Jost Variable', ui-sans-serif, system-ui, 'Segoe UI', Arial, sans-serif;
+    /* Headings use Jost too (bold geometric sans); Cormorant is no longer used for headings */
+    --font-display: 'Jost Variable', ui-sans-serif, system-ui, 'Segoe UI', Arial, sans-serif;
+    --font-script: 'Great Vibes', 'Segoe Script', cursive;
+
+    /* Cocoa: warm chocolate brown (text, dark surfaces) */
+    --color-cocoa-50: #faf6f3;
+    --color-cocoa-100: #f2e9e3;
+    --color-cocoa-200: #e3d2c6;
+    --color-cocoa-300: #cbb09e;
+    --color-cocoa-400: #a88470;
+    --color-cocoa-500: #86634f;
+    --color-cocoa-600: #6c4d3c;
+    --color-cocoa-700: #553b2e;
+    --color-cocoa-800: #402c22;
+    --color-cocoa-900: #2e1f18;
+    --color-cocoa-950: #1d130e;
+
+    /* Rose: the hot pink of the logo swirl (#fa0379). Buttons use 600 for readable white text. */
+    --color-rose-50: #fff0f7;
+    --color-rose-100: #ffe0ee;
+    --color-rose-200: #ffc2de;
+    --color-rose-300: #ff8fc2;
+    --color-rose-400: #ff4d9c;
+    --color-rose-500: #fa0379;
+    --color-rose-600: #d9006a;
+    --color-rose-700: #b30058;
+    --color-rose-800: #8f0748;
+    --color-rose-900: #760b3e;
+
+    /* Lime: the green of the logo lettering (#82c20b) */
+    --color-lime-50: #f6fbe9;
+    --color-lime-100: #eaf6cf;
+    --color-lime-200: #d4eda0;
+    --color-lime-300: #b6df63;
+    --color-lime-400: #9bd132;
+    --color-lime-500: #82c20b;
+    --color-lime-600: #659a06;
+    --color-lime-700: #4d7509;
+    --color-lime-800: #3f5d0e;
+    --color-lime-900: #354e11;
+
+    /* Butter: soft yellow for small highlights */
+    --color-butter-100: #fdf3d8;
+    --color-butter-300: #f6d77f;
+
+    --color-ink: #2e1f18;
+    --color-paper: #fffaf5;
+    --color-cream: #fbf1e7;
+    /* Sand: warm neutral for panels and product tiles */
+    --color-sand: #f4eee8;
+
+    --container-page: 82rem;
+
+    --shadow-soft: 0 1px 2px rgb(46 31 24 / 0.06);
+    --shadow-lift: 0 1px 2px rgb(46 31 24 / 0.06), 0 8px 24px -12px rgb(46 31 24 / 0.18);
+
+    --animate-fade-up: fade-up 0.9s cubic-bezier(.2, .7, .2, 1) both;
+    @keyframes fade-up {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: none; }
+    }
+
+    --animate-float: float 6s ease-in-out infinite;
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    --animate-marquee: marquee 40s linear infinite;
+    @keyframes marquee {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+    }
+
+    --animate-spin-slow: spin 24s linear infinite;
+}
+
+@layer base {
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+    body { @apply bg-paper font-sans text-ink antialiased; font-size: 1.0625rem; }
+    h1, h2, h3, .font-display { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.02em; text-wrap: balance; }
+    p { text-wrap: pretty; }
+    .font-script { font-family: var(--font-script); font-weight: 400; letter-spacing: 0; font-size-adjust: none; }
+    [x-cloak] { display: none !important; }
+    ::selection { @apply bg-rose-200 text-cocoa-950; }
+    :focus-visible { @apply outline-2 outline-offset-2 outline-rose-400; }
+}
+
+@utility btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[0.95rem] font-medium tracking-[0.005em] transition duration-300 ease-out active:scale-[0.97] disabled:opacity-60 disabled:active:scale-100 cursor-pointer;
+}
+
+@layer components {
+    .page { @apply mx-auto w-full max-w-page px-5 sm:px-8 lg:px-10; }
+
+    /* Script label above headings, e.g. "Our menu" */
+    .eyebrow { @apply font-script text-[1.9rem] leading-none text-rose-500 sm:text-[2.1rem]; }
+    /* Small label (footer column headings etc.) */
+    .kicker { @apply text-sm font-medium text-rose-700; }
+
+    .btn-primary { @apply btn bg-cocoa-900 text-white hover:bg-cocoa-700; }
+    .btn-rose { @apply btn bg-rose-600 text-white hover:bg-rose-700; }
+    .btn-outline { @apply btn bg-transparent text-cocoa-900 ring-1 ring-cocoa-900/20 hover:bg-cocoa-900 hover:text-white hover:ring-cocoa-900; }
+    .btn-ghost { @apply btn bg-cocoa-100/70 text-cocoa-900 hover:bg-cocoa-200/70; }
+    .btn-light { @apply btn bg-white text-cocoa-900 hover:bg-rose-50; }
+    .btn-danger { @apply btn bg-red-50 text-red-700 hover:bg-red-100; }
+    .btn-sm { @apply px-3.5 py-1.5 text-[0.8rem]; }
+
+    /* Admin inputs: soft filled fields, no hard borders */
+    .input { @apply block w-full rounded-xl border-0 bg-cocoa-50 px-4 py-3 text-[0.95rem] text-ink ring-1 ring-transparent placeholder:text-cocoa-900/35 transition focus:bg-white focus:ring-2 focus:ring-rose-400 focus:outline-none; }
+    select.input { @apply appearance-none pr-10; background-image: url("data:image/svg+xml;utf8,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27 fill=%27%23d9006a%27><path d=%27M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4z%27/></svg>"); background-size: 1.1rem; background-position: right 0.9rem center; background-repeat: no-repeat; }
+    .label { @apply mb-1.5 block text-xs font-medium uppercase tracking-[0.1em] text-cocoa-900/60; }
+    .error { @apply mt-1.5 text-xs font-medium text-red-600; }
+
+    /* Public form fields: white on cream */
+    .field { @apply block w-full rounded-lg border-0 bg-white px-4 py-3 text-[0.95rem] text-ink ring-1 ring-cocoa-900/15 placeholder:text-cocoa-900/35 transition focus:ring-2 focus:ring-rose-400 focus:outline-none; }
+    select.field { @apply appearance-none pr-10; background-image: url("data:image/svg+xml;utf8,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27 fill=%27%23d9006a%27><path d=%27M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4z%27/></svg>"); background-size: 1.1rem; background-position: right 0.9rem center; background-repeat: no-repeat; }
+    .field-label { @apply mb-1.5 block text-sm font-medium text-cocoa-800; }
+
+    /* Plain white surfaces with a hairline edge */
+    .card { @apply rounded-3xl bg-white ring-1 ring-cocoa-900/8; }
+    .panel { @apply rounded-[2rem] bg-white ring-1 ring-cocoa-900/8; }
+    /* Kept as a plain white surface (used to be frosted glass) */
+    .glass { @apply bg-white; }
+
+    /* Flat cream band behind page headings */
+    .mesh { background-color: var(--color-sand); }
+
+    .chip { @apply inline-flex items-center rounded-full bg-cocoa-50 px-3 py-1 text-xs font-medium text-cocoa-800; }
+    .chip-rose { @apply inline-flex items-center rounded-full bg-rose-100 px-3 py-1 text-xs font-semibold text-rose-700; }
+
+    .link-rose { @apply inline-flex items-center gap-2 text-[0.95rem] font-medium text-rose-700 underline decoration-rose-300 underline-offset-4 transition hover:text-rose-900 hover:decoration-rose-700; }
+
+    .prose-sweet { @apply max-w-none text-[1.02rem] leading-8 text-ink/75; }
+    .prose-sweet p { @apply mb-5; }
+    .prose-sweet h2, .prose-sweet h3 { @apply mt-10 mb-3 font-display text-3xl text-cocoa-950; }
+    .prose-sweet ul { @apply mb-5 list-disc space-y-1 pl-5 marker:text-rose-400; }
+    .prose-sweet ol { @apply mb-5 list-decimal space-y-1 pl-5; }
+    .prose-sweet strong { @apply font-semibold text-ink; }
+    .prose-sweet a { @apply font-medium text-rose-700 underline decoration-rose-300 underline-offset-4; }
+
+    /* Old decorative divider: switched off */
+    .rule-rose { display: none; }
+
+    .scrollbar-none { scrollbar-width: none; }
+    .scrollbar-none::-webkit-scrollbar { display: none; }
+
+    /* Photo frame (used to be arch-topped) */
+    .arch { border-radius: 1.5rem; }
+
+    /* Old sprinkles pattern: switched off, class kept so markup still works */
+    .sprinkles { position: relative; }
+
+    /* Pink band with soft abstract shapes behind the content: <section class="pink-abstract"> */
+    .pink-abstract {
+        position: relative; isolation: isolate; overflow: hidden;
+        background-color: rgb(250 3 121 / 0.025); /* see-through brand pink over the cream page */
+        background-image:
+            radial-gradient(34rem 24rem at 4% 8%, rgb(255 194 222 / 0.22), transparent 65%),
+            radial-gradient(30rem 22rem at 98% 92%, rgb(253 243 216 / 0.5), transparent 65%),
+            radial-gradient(22rem 16rem at 82% 6%, rgb(234 246 207 / 0.4), transparent 65%);
+    }
+    .pink-abstract::before, .pink-abstract::after {
+        content: ''; position: absolute; z-index: -1; pointer-events: none; opacity: .4;
+        background-repeat: no-repeat; background-size: contain;
+    }
+    /* Top left: organic blob, outlined ring and dots */
+    .pink-abstract::before {
+        top: -7rem; left: -7rem; width: 22rem; height: 22rem;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><path d='M290 70c48 38 66 110 40 168s-96 104-164 98S40 284 30 216 56 86 118 56s124-24 172 14z' fill='%23ffc2de' fill-opacity='.45'/><circle cx='300' cy='250' r='46' fill='none' stroke='%23ff8fc2' stroke-width='2' stroke-dasharray='4 9' stroke-linecap='round'/><g fill='%23ff4d9c' fill-opacity='.35'><circle cx='330' cy='120' r='6'/><circle cx='356' cy='150' r='4'/><circle cx='318' cy='160' r='3'/></g></svg>");
+    }
+    /* Bottom right: wavy line, solid ring and a lime blob */
+    .pink-abstract::after {
+        right: -6rem; bottom: -8rem; width: 26rem; height: 22rem;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 460 400'><path d='M330 150c40 30 50 86 22 120s-90 40-126 10-40-90-8-122 72-38 112-8z' fill='%23d4eda0' fill-opacity='.35'/><path d='M20 300c30-30 60-30 90 0s60 30 90 0 60-30 90 0 60 30 90 0 60-30 90 0' fill='none' stroke='%23ff8fc2' stroke-width='3' stroke-linecap='round' stroke-opacity='.6'/><circle cx='250' cy='150' r='34' fill='none' stroke='%23ffc2de' stroke-width='8'/></svg>");
+    }
+    @media (max-width: 640px) {
+        .pink-abstract::before { width: 16rem; height: 16rem; top: -3rem; left: -4rem; }
+        .pink-abstract::after { width: 18rem; height: 16rem; right: -5rem; bottom: -4rem; }
+    }
+
+    /* Dark footer with soft abstract shapes (pink glow, blob, rings, wavy line): <div class="dark-abstract"> */
+    .dark-abstract {
+        position: relative; isolation: isolate; overflow: hidden;
+        background-color: var(--color-cocoa-950);
+        background-image:
+            radial-gradient(36rem 26rem at 0% 0%, rgb(250 3 121 / 0.16), transparent 65%),
+            radial-gradient(30rem 22rem at 100% 100%, rgb(250 3 121 / 0.12), transparent 65%),
+            radial-gradient(24rem 18rem at 85% 0%, rgb(130 194 11 / 0.08), transparent 65%);
+    }
+    .dark-abstract::before, .dark-abstract::after {
+        content: ''; position: absolute; z-index: -1; pointer-events: none;
+        background-repeat: no-repeat; background-size: contain;
+    }
+    /* Top right: lime blob and dashed ring */
+    .dark-abstract::before {
+        top: -6rem; right: -6rem; width: 24rem; height: 24rem;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><path d='M290 70c48 38 66 110 40 168s-96 104-164 98S40 284 30 216 56 86 118 56s124-24 172 14z' fill='%2382c20b' fill-opacity='.07'/><circle cx='250' cy='330' r='40' fill='none' stroke='%23ff8fc2' stroke-opacity='.25' stroke-width='2' stroke-dasharray='4 9' stroke-linecap='round'/><g fill='%23ff8fc2' fill-opacity='.3'><circle cx='70' cy='120' r='5'/><circle cx='95' cy='150' r='3'/></g></svg>");
+    }
+    /* Bottom left: pink blob, wavy line and solid ring */
+    .dark-abstract::after {
+        left: -6rem; bottom: -7rem; width: 28rem; height: 24rem;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 460 400'><path d='M200 150c40 30 50 86 22 120s-90 40-126 10-40-90-8-122 72-38 112-8z' fill='%23fa0379' fill-opacity='.1'/><path d='M120 300c30-30 60-30 90 0s60 30 90 0 60-30 90 0 60 30 90 0' fill='none' stroke='%23ff8fc2' stroke-opacity='.3' stroke-width='3' stroke-linecap='round'/><circle cx='330' cy='170' r='30' fill='none' stroke='%23ff8fc2' stroke-opacity='.15' stroke-width='7'/></svg>");
+    }
+    @media (max-width: 640px) {
+        .dark-abstract::before { width: 16rem; height: 16rem; top: -4rem; right: -5rem; }
+        .dark-abstract::after { width: 18rem; height: 16rem; left: -5rem; bottom: -5rem; }
+    }
+}
+
+/* Accent words in headings (*word* in Site content): rendered plainly */
+.accent { font-style: normal; }
+
+/* Fade sections in as they scroll into view */
+.js [data-reveal] { opacity: 0; transform: translateY(12px); transition: opacity .6s ease-out, transform .6s ease-out; transition-delay: var(--delay, 0ms); }
+.js [data-reveal].revealed { opacity: 1; transform: none; }
+
+/* Endless auto-sliding strip (home gallery): pauses on hover or keyboard focus */
+.marquee-track { animation: marquee var(--marquee-duration, 45s) linear infinite; }
+.marquee:hover .marquee-track, .marquee:focus-within .marquee-track { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+    /* No auto-motion: a plain swipeable row instead */
+    .marquee { overflow-x: auto; scrollbar-width: none; }
+    .marquee-track { animation: none; }
+    [data-marquee-clone] { display: none; }
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    .js [data-reveal] { opacity: 1; transform: none; }
+}

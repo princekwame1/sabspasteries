@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+    Options -Indexes
+    RewriteEngine On
+
+    # Leave SSL validation (AutoSSL / Let's Encrypt) and cgi-bin alone
+    RewriteRule ^(\.well-known|cgi-bin)(/|$) - [L]
+
+    # Send every other request into Laravel's public folder
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Fallback if mod_rewrite is unavailable: deny everything outside public/
+<IfModule !mod_rewrite.c>
+    Require all denied
+</IfModule>
