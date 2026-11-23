@@ -281,12 +281,13 @@
             <section id="order-chat" x-show="open" x-cloak x-transition.origin.bottom.right role="dialog" aria-label="Order chat"
                 class="fixed inset-x-3 bottom-24 top-24 z-50 flex flex-col overflow-hidden rounded-3xl bg-paper shadow-[0_30px_80px_-20px_rgb(46_31_24/0.45)] ring-1 ring-cocoa-900/10 sm:inset-x-auto sm:right-5 sm:top-auto sm:h-[36rem] sm:max-h-[calc(100vh-8rem)] sm:w-[24rem]">
                 <header class="flex items-center gap-3 bg-rose-600 px-5 py-4 text-white">
-                    <span class="grid size-10 shrink-0 place-items-center rounded-full bg-white"><x-logo class="h-7 w-auto" /></span>
+                    <span class="grid size-11 shrink-0 place-items-center overflow-hidden rounded-full bg-white p-1.5 ring-2 ring-white/60"><x-logo class="size-full object-contain" /></span>
                     <div class="min-w-0 flex-1">
                         <p class="font-semibold leading-tight">{{ $s['business_name'] }}</p>
                         @if (site('chat_subtitle'))<p class="text-xs text-white/80">{{ site('chat_subtitle') }}</p>@endif
                     </div>
                     <button type="button" @click="reset()" class="grid size-9 place-items-center rounded-full hover:bg-white/15" title="New chat" aria-label="Start a new chat"><x-icon name="refresh" class="size-4.5" /></button>
+                    <button type="button" @click="open = false" class="grid size-9 place-items-center rounded-full hover:bg-white/15" title="Close" aria-label="Close chat"><x-icon name="x" class="size-5" /></button>
                 </header>
 
                 <div x-ref="log" class="flex-1 space-y-3 overflow-y-auto px-4 py-5" aria-live="polite">
