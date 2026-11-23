@@ -2,7 +2,7 @@
      Same width as the home hero: runs nearly edge to edge, content aligned with the header. --}}
 @props(['title', 'eyebrow' => null, 'image' => null])
 <section {{ $attributes->merge(['class' => 'px-3 pt-24 sm:px-5']) }}>
-    <div class="overflow-hidden rounded-[2rem] bg-sand">
+    <div class="pink-abstract rounded-[2rem]">
         <div class="page grid items-center gap-10 py-12 sm:py-16 {{ $image ? 'lg:grid-cols-[1.4fr_1fr] lg:py-12' : '' }}">
             <div class="animate-fade-up">
                 @if ($eyebrow)<p class="eyebrow">{{ $eyebrow }}</p>@endif

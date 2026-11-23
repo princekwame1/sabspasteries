@@ -71,7 +71,7 @@
                 <div class="mb-3 grid h-28 max-w-sm place-items-center overflow-hidden rounded-2xl bg-cocoa-50">
                     @if ($url)<img src="{{ $url }}" alt="" class="max-h-16 w-auto">@else<x-logo />@endif
                 </div>
-                <input name="logo" type="file" accept="image/png,image/jpeg,image/webp" class="text-sm file:mr-3 file:rounded-full file:border-0 file:bg-cocoa-50 file:px-4 file:py-2 file:font-semibold file:text-cocoa-800" aria-label="Logo">
+                <input name="logo" type="file" data-no-shrink accept="image/png,image/jpeg,image/webp" class="text-sm file:mr-3 file:rounded-full file:border-0 file:bg-cocoa-50 file:px-4 file:py-2 file:font-semibold file:text-cocoa-800" aria-label="Logo">
                 @if ($url)<label class="mt-2 flex items-center gap-2 text-xs text-ink/60"><input type="checkbox" name="remove_logo" value="1" class="accent-cocoa-700"> Remove and use the default</label>@endif
                 @error('logo')<p class="error">{{ $message }}</p>@enderror
             </div>

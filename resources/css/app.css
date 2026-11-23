@@ -229,32 +229,10 @@
     /* Old sprinkles pattern: switched off, class kept so markup still works */
     .sprinkles { position: relative; }
 
-    /* Pink band with soft abstract shapes behind the content: <section class="pink-abstract"> */
+    /* Plain soft-pink band, no decorative shapes: <section class="pink-abstract"> (name kept so existing markup still works) */
     .pink-abstract {
-        position: relative; isolation: isolate; overflow: hidden;
-        background-color: rgb(250 3 121 / 0.025); /* see-through brand pink over the cream page */
-        background-image:
-            radial-gradient(34rem 24rem at 4% 8%, rgb(255 194 222 / 0.22), transparent 65%),
-            radial-gradient(30rem 22rem at 98% 92%, rgb(253 243 216 / 0.5), transparent 65%),
-            radial-gradient(22rem 16rem at 82% 6%, rgb(234 246 207 / 0.4), transparent 65%);
-    }
-    .pink-abstract::before, .pink-abstract::after {
-        content: ''; position: absolute; z-index: -1; pointer-events: none; opacity: .4;
-        background-repeat: no-repeat; background-size: contain;
-    }
-    /* Top left: organic blob, outlined ring and dots */
-    .pink-abstract::before {
-        top: -7rem; left: -7rem; width: 22rem; height: 22rem;
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><path d='M290 70c48 38 66 110 40 168s-96 104-164 98S40 284 30 216 56 86 118 56s124-24 172 14z' fill='%23ffc2de' fill-opacity='.45'/><circle cx='300' cy='250' r='46' fill='none' stroke='%23ff8fc2' stroke-width='2' stroke-dasharray='4 9' stroke-linecap='round'/><g fill='%23ff4d9c' fill-opacity='.35'><circle cx='330' cy='120' r='6'/><circle cx='356' cy='150' r='4'/><circle cx='318' cy='160' r='3'/></g></svg>");
-    }
-    /* Bottom right: wavy line, solid ring and a lime blob */
-    .pink-abstract::after {
-        right: -6rem; bottom: -8rem; width: 26rem; height: 22rem;
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 460 400'><path d='M330 150c40 30 50 86 22 120s-90 40-126 10-40-90-8-122 72-38 112-8z' fill='%23d4eda0' fill-opacity='.35'/><path d='M20 300c30-30 60-30 90 0s60 30 90 0 60-30 90 0 60 30 90 0 60-30 90 0' fill='none' stroke='%23ff8fc2' stroke-width='3' stroke-linecap='round' stroke-opacity='.6'/><circle cx='250' cy='150' r='34' fill='none' stroke='%23ffc2de' stroke-width='8'/></svg>");
-    }
-    @media (max-width: 640px) {
-        .pink-abstract::before { width: 16rem; height: 16rem; top: -3rem; left: -4rem; }
-        .pink-abstract::after { width: 18rem; height: 16rem; right: -5rem; bottom: -4rem; }
+        position: relative; overflow: hidden;
+        background-color: var(--color-rose-100);
     }
 
     /* Dark footer with soft abstract shapes (pink glow, blob, rings, wavy line): <div class="dark-abstract"> */

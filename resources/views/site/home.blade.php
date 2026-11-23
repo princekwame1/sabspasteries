@@ -2,7 +2,7 @@
     $s = \App\Models\Setting::values();
     $heroImage = \App\Models\Setting::imageUrl('hero_image_path');
     // Hero cakes that rotate every 5 seconds: the Main photo from Site content first, then these.
-    $heroSlides = [$heroImage, asset('images/hero-red-rose-cake.webp'), asset('images/hero-mothers-day-cake.png')];
+    $heroSlides = [$heroImage, asset('images/hero-red-rose-cake.webp'), asset('images/hero-mothers-day-cake.webp')];
     // Category grid: the first tile widens so every row is full (4 columns on desktop, 2 on phones).
     $catCount = $categories->count();
     $firstSpan = trim([0 => '', 1 => 'lg:col-span-4', 2 => 'lg:col-span-3', 3 => 'lg:col-span-2'][$catCount % 4].' '.($catCount % 2 ? 'col-span-2' : ''));
@@ -11,7 +11,7 @@
     {{-- Hero --}}
     {{-- Panel runs nearly edge to edge; content inside stays aligned with the header --}}
     <section class="px-3 pt-24 sm:px-5">
-        <div class="overflow-hidden rounded-[2rem] bg-sand">
+        <div class="pink-abstract rounded-[2rem]">
         <div class="page relative grid items-center gap-12 pb-10 pt-12 lg:grid-cols-[1.05fr_1fr] lg:gap-6 lg:py-20">
             <div class="animate-fade-up">
                 @if (site('hero_eyebrow'))<p class="eyebrow">{{ site('hero_eyebrow') }}</p>@endif

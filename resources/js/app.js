@@ -12,6 +12,66 @@ document.addEventListener('submit', (e) => {
     if (message && !window.confirm(message)) e.preventDefault();
 });
 
+// Shrink big photos in the browser before they upload. Phone photos are often 3–8 MB;
+// this resizes to at most 1600px on the long side (plenty for the site) and re-compresses,
+// usually to 200–400 KB. Opt out with <input type="file" data-no-shrink> (e.g. the logo).
+const SHRINK_MAX_SIDE = 1600;
+const SHRINK_QUALITY = 0.82;
+const shrinkJobs = new WeakMap();
+
+async function shrinkImage(file) {
+    if (!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size < 300 * 1024) return file;
+    let bitmap;
+    try {
+        bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+    } catch {
+        return file; // unreadable here: upload the original
+    }
+    const scale = Math.min(1, SHRINK_MAX_SIDE / Math.max(bitmap.width, bitmap.height));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(bitmap.width * scale);
+    canvas.height = Math.round(bitmap.height * scale);
+    const ctx = canvas.getContext('2d');
+    // JPEGs have no transparency: paint white first. PNG/WebP keep it and become WebP.
+    const type = file.type === 'image/jpeg' ? 'image/jpeg' : 'image/webp';
+    if (type === 'image/jpeg') {
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    bitmap.close?.();
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, type, SHRINK_QUALITY));
+    // Keep the original if the browser can't encode this type, or the result isn't smaller.
+    if (!blob || blob.type !== type || blob.size >= file.size) return file;
+    const name = file.name.replace(/\.[^.]+$/, '') + (type === 'image/jpeg' ? '.jpg' : '.webp');
+    return new File([blob], name, { type, lastModified: file.lastModified });
+}
+
+document.addEventListener('change', (e) => {
+    const input = e.target;
+    if (!(input instanceof HTMLInputElement) || input.type !== 'file' || input.hasAttribute('data-no-shrink') || !input.files?.length) return;
+    const originals = [...input.files];
+    const job = Promise.all(originals.map(shrinkImage)).then((files) => {
+        if (shrinkJobs.get(input) !== job || files.every((f, i) => f === originals[i])) return; // newer pick, or nothing changed
+        const list = new DataTransfer();
+        files.forEach((f) => list.items.add(f));
+        input.files = list.files;
+    }).catch(() => {}).finally(() => {
+        if (shrinkJobs.get(input) === job) shrinkJobs.delete(input);
+    });
+    shrinkJobs.set(input, job);
+});
+
+// If a form is sent while photos are still shrinking, wait for them, then send it.
+document.addEventListener('submit', async (e) => {
+    if (e.defaultPrevented) return;
+    const jobs = [...e.target.querySelectorAll('input[type=file]')].map((input) => shrinkJobs.get(input)).filter(Boolean);
+    if (!jobs.length) return;
+    e.preventDefault();
+    await Promise.allSettled(jobs);
+    e.target.requestSubmit(e.submitter ?? undefined);
+});
+
 // Auto-submit filter forms when a select changes: <select data-autosubmit>.
 document.addEventListener('change', (e) => {
     if (e.target.matches('[data-autosubmit]')) e.target.form?.requestSubmit();
