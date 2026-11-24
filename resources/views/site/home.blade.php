@@ -120,6 +120,24 @@
         </section>
     @endif
 
+    {{-- Our services --}}
+    @php $services = collect(range(1, 5))->map(fn ($n) => [site("home_service_{$n}_title"), site("home_service_{$n}_text"), site("home_service_{$n}_icon")])->filter(fn ($v) => $v[0] !== '')->values(); @endphp
+    @if (site_shows('home_services_show') && $services->isNotEmpty())
+        <section class="page pt-24">
+            <x-section-heading :eyebrow="site('home_services_eyebrow')" :title="site('home_services_title')" center />
+            <ul class="mt-12 flex flex-wrap justify-center gap-5">
+                @foreach ($services as $i => [$title, $text, $icon])
+                    <li class="panel w-full p-7 sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]" data-reveal style="--delay: {{ $i * 70 }}ms">
+                        <span class="grid size-12 place-items-center rounded-full bg-rose-100 text-rose-600"><x-icon :name="$icon ?: 'star'" class="size-5" /></span>
+                        <h3 class="mt-5 text-xl text-cocoa-950">{{ $title }}</h3>
+                        @if ($text)<p class="mt-2 text-ink/65">{{ $text }}</p>@endif
+                    </li>
+                @endforeach
+            </ul>
+            @if (site('home_services_text'))<p class="mx-auto mt-10 max-w-2xl text-center text-lg leading-relaxed text-ink/70" data-reveal>{{ site('home_services_text') }}</p>@endif
+        </section>
+    @endif
+
     {{-- How ordering works --}}
     @if (site_shows('home_steps_show'))
         <section class="pink-abstract mt-24 py-16 sm:py-20">

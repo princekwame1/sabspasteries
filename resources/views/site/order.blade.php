@@ -16,9 +16,9 @@
     <div class="page grid items-start gap-10 pt-12 lg:grid-cols-[1fr_22rem]">
         @if (! $open)
             <div class="panel p-10 text-center">
-                <p class="font-display text-3xl text-cocoa-950">Orders are paused</p>
+                <p class="font-display text-3xl text-cocoa-950">{{ site('order_closed_title') }}</p>
                 <p class="mx-auto mt-3 max-w-lg text-ink/65">{{ $s['orders_closed_note'] }}</p>
-                @if ($whatsapp)<a href="{{ $whatsapp }}" target="_blank" rel="noopener" class="btn-rose mt-8"><x-icon name="whatsapp" class="size-4" /> Message us</a>@endif
+                @if ($whatsapp)<a href="{{ $whatsapp }}" target="_blank" rel="noopener" class="btn-rose mt-8"><x-icon name="whatsapp" class="size-4" /> {{ site('order_closed_button') }}</a>@endif
             </div>
         @else
             <form method="post" action="{{ route('order.store') }}" enctype="multipart/form-data" class="space-y-6"
@@ -32,7 +32,7 @@
 
                 {{-- 1. What --}}
                 <section class="panel p-6 sm:p-10">
-                    <h2 class="flex items-center gap-3 font-display text-2xl text-cocoa-950"><span class="grid size-9 place-items-center rounded-full bg-rose-100 font-sans text-sm font-semibold text-rose-700">1</span> What would you like?</h2>
+                    <h2 class="flex items-center gap-3 font-display text-2xl text-cocoa-950"><span class="grid size-9 place-items-center rounded-full bg-rose-100 font-sans text-sm font-semibold text-rose-700">1</span> {{ site('order_step_1') }}</h2>
                     <div class="mt-7 grid gap-5 sm:grid-cols-2">
                         <div class="sm:col-span-2">
                             <label class="field-label" for="product_id">Choose from the menu</label>
@@ -88,7 +88,7 @@
 
                 {{-- 2. Design --}}
                 <section class="panel p-6 sm:p-10">
-                    <h2 class="flex items-center gap-3 font-display text-2xl text-cocoa-950"><span class="grid size-9 place-items-center rounded-full bg-rose-100 font-sans text-sm font-semibold text-rose-700">2</span> Your design</h2>
+                    <h2 class="flex items-center gap-3 font-display text-2xl text-cocoa-950"><span class="grid size-9 place-items-center rounded-full bg-rose-100 font-sans text-sm font-semibold text-rose-700">2</span> {{ site('order_step_2') }}</h2>
                     <div class="mt-7 grid gap-5">
                         <div>
                             <label class="field-label" for="design_notes">{{ site('order_design_label') }}</label>
@@ -118,7 +118,7 @@
 
                 {{-- 3. When --}}
                 <section class="panel p-6 sm:p-10">
-                    <h2 class="flex items-center gap-3 font-display text-2xl text-cocoa-950"><span class="grid size-9 place-items-center rounded-full bg-rose-100 font-sans text-sm font-semibold text-rose-700">3</span> When and how?</h2>
+                    <h2 class="flex items-center gap-3 font-display text-2xl text-cocoa-950"><span class="grid size-9 place-items-center rounded-full bg-rose-100 font-sans text-sm font-semibold text-rose-700">3</span> {{ site('order_step_3') }}</h2>
                     <div class="mt-7 grid gap-5 sm:grid-cols-2">
                         <div>
                             <label class="field-label" for="needed_on">Date needed</label>
@@ -161,7 +161,7 @@
 
                 {{-- 4. Who --}}
                 <section class="panel p-6 sm:p-10">
-                    <h2 class="flex items-center gap-3 font-display text-2xl text-cocoa-950"><span class="grid size-9 place-items-center rounded-full bg-rose-100 font-sans text-sm font-semibold text-rose-700">4</span> Your details</h2>
+                    <h2 class="flex items-center gap-3 font-display text-2xl text-cocoa-950"><span class="grid size-9 place-items-center rounded-full bg-rose-100 font-sans text-sm font-semibold text-rose-700">4</span> {{ site('order_step_4') }}</h2>
                     <div class="mt-7 grid gap-5 sm:grid-cols-2">
                         <div class="sm:col-span-2">
                             <label class="field-label" for="name">Your name</label>

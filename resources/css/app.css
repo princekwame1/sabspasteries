@@ -241,7 +241,7 @@
         background: url('/images/wall-texture-strong.webp') repeat;
         background-size: 800px auto;
         mix-blend-mode: multiply;
-        opacity: .25;
+        opacity: .15;
     }
 
     /* Dark footer with soft abstract shapes (pink glow, blob, rings, wavy line): <div class="dark-abstract"> */

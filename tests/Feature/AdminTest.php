@@ -235,4 +235,19 @@ class AdminTest extends TestCase
         config(['services.anthropic.key' => 'test-key']);
         $this->get('/')->assertSee('Chat to order');
     }
+
+    public function test_services_and_qr_page_are_editable(): void
+    {
+        $this->get('/')->assertSee('Our services')->assertSee('Dessert boxes')->assertSee('Celebration cakes');
+
+        $this->actingAs($this->admin);
+        $defaults = fn (string $page) => collect(SiteContent::pageFields($page))->reject(fn ($field) => in_array($field['type'], ['image', 'video'], true))->map(fn ($field) => $field['default'])->all();
+
+        $this->put('/admin/content/home', ['home_service_4_icon' => 'not-an-icon'] + $defaults('home'))->assertSessionHasErrors('home_service_4_icon');
+        $this->put('/admin/content/home', ['home_service_4_title' => 'Gift boxes', 'home_service_4_icon' => 'tag', 'home_service_5_title' => ''] + $defaults('home'))->assertRedirect();
+        $this->put('/admin/content/layout', ['qr_eyebrow' => 'Hello from the QR!', 'qr_order_button' => 'Order treats'] + $defaults('layout'))->assertRedirect();
+
+        $this->get('/')->assertSee('Gift boxes')->assertDontSee('Special occasion orders');
+        $this->get('/follow')->assertSee('Hello from the QR!')->assertSee('Order treats');
+    }
 }

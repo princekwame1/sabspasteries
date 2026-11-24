@@ -29,6 +29,7 @@ class ContentController extends Controller
             $rules[$key] = match ($f['type']) {
                 'textarea' => ['nullable', 'string', 'max:5000'],
                 'toggle' => ['nullable', 'boolean'],
+                'select' => ['required', 'in:'.implode(',', array_keys($f['options']))],
                 'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:8192'],
                 'video' => ['nullable', 'file', 'mimetypes:video/mp4,video/webm', 'max:61440'],
                 default => ['nullable', 'string', 'max:300'],

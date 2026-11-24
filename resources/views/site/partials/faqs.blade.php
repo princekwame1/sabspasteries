@@ -3,7 +3,7 @@
     <div class="grid gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
         <div>
             <x-section-heading :eyebrow="site('faq_eyebrow')" :title="site('faq_title')" />
-            <p class="mt-6 text-ink/60" data-reveal>Something else on your mind? <a href="{{ route('contact') }}" class="font-medium text-rose-700 underline decoration-rose-300 underline-offset-4 hover:text-rose-900">Ask us</a>.</p>
+            @if (site('faq_more_text'))<p class="mt-6 text-ink/60" data-reveal>{{ site('faq_more_text') }} <a href="{{ route('contact') }}" class="font-medium text-rose-700 underline decoration-rose-300 underline-offset-4 hover:text-rose-900">{{ site('faq_more_link') }}</a>.</p>@endif
         </div>
         <div class="divide-y divide-cocoa-900/10 border-y border-cocoa-900/10" x-data="{ open: 0 }">
             @foreach ($faqs as $i => $faq)

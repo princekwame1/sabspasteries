@@ -50,7 +50,7 @@
                     <span class="mx-auto grid size-16 place-items-center rounded-full bg-rose-100 text-rose-600"><x-icon name="check" class="size-7" /></span>
                     <p class="mt-5 font-display text-3xl text-cocoa-950">{{ site('contact_success_title') }}</p>
                     <p class="mt-3 text-ink/65">{{ session('sent') }}</p>
-                    <a href="{{ route('menu') }}" class="btn-rose mt-8">Browse the menu</a>
+                    <a href="{{ route('menu') }}" class="btn-rose mt-8">{{ site('contact_success_button') }}</a>
                 </div>
             @else
                 <form method="post" action="{{ route('contact.send') }}" class="space-y-4">

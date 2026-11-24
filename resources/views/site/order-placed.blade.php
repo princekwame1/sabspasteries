@@ -17,7 +17,7 @@
     <section class="page max-w-3xl pt-12">
         <div class="panel p-8 sm:p-10">
             <div class="flex flex-wrap items-baseline justify-between gap-3">
-                <p class="font-display text-2xl text-cocoa-950">Your order</p>
+                <p class="font-display text-2xl text-cocoa-950">{{ site('order_summary_title') }}</p>
                 <p class="chip-rose text-sm">{{ $order->reference() }}</p>
             </div>
             <dl class="mt-6 grid gap-5 text-sm sm:grid-cols-2">
@@ -28,12 +28,12 @@
                 <div><dt class="text-ink/50">{{ $order->fulfilmentLabel() }}</dt><dd class="mt-0.5 font-semibold text-cocoa-950">{{ $order->fulfilment === 'delivery' ? $order->delivery_address : 'We will share the collection details' }}</dd></div>
                 @if ($order->cake_message)<div><dt class="text-ink/50">Message on cake</dt><dd class="mt-0.5 font-semibold text-cocoa-950">“{{ $order->cake_message }}”</dd></div>@endif
             </dl>
-            <div class="mt-8 rounded-[2rem] bg-cream p-5 text-sm text-ink/70">
-                Want a faster reply? Send your order to us on WhatsApp too. It is already filled in for you.
-            </div>
+            @if ($whatsapp && site('order_whatsapp_text'))
+                <div class="mt-8 rounded-[2rem] bg-cream p-5 text-sm text-ink/70">{{ site('order_whatsapp_text') }}</div>
+            @endif
             <div class="mt-6 flex flex-wrap gap-3">
-                @if ($whatsapp)<a href="{{ $whatsapp }}" target="_blank" rel="noopener" class="btn bg-[#25d366] px-7 py-3.5 text-white hover:bg-[#1fb858]"><x-icon name="whatsapp" class="size-4" /> Send on WhatsApp</a>@endif
-                <a href="{{ route('menu') }}" class="btn-outline px-7 py-3.5">Back to the menu</a>
+                @if ($whatsapp)<a href="{{ $whatsapp }}" target="_blank" rel="noopener" class="btn bg-[#25d366] px-7 py-3.5 text-white hover:bg-[#1fb858]"><x-icon name="whatsapp" class="size-4" /> {{ site('order_whatsapp_button') }}</a>@endif
+                <a href="{{ route('menu') }}" class="btn-outline px-7 py-3.5">{{ site('order_back_button') }}</a>
             </div>
         </div>
     </section>

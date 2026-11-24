@@ -74,7 +74,16 @@
                                 </div>
                             @else
                                 <label class="label" for="{{ $key }}">{{ $f['label'] }}</label>
-                                @if ($f['type'] === 'textarea')
+                                @if ($f['type'] === 'select')
+                                    <div class="flex items-center gap-3">
+                                        <span class="grid size-11 shrink-0 place-items-center rounded-full bg-rose-100 text-rose-600"><x-icon :name="old($key, $s[$key] ?? $f['default'])" class="size-5" /></span>
+                                        <select id="{{ $key }}" name="{{ $key }}" class="input">
+                                            @foreach ($f['options'] as $value => $label)
+                                                <option value="{{ $value }}" @selected(old($key, $s[$key] ?? $f['default']) === $value)>{{ $label }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @elseif ($f['type'] === 'textarea')
                                     <textarea id="{{ $key }}" name="{{ $key }}" rows="{{ $key === 'about' ? 7 : 3 }}" class="input">{{ old($key, $s[$key] ?? '') }}</textarea>
                                 @else
                                     <input id="{{ $key }}" name="{{ $key }}" value="{{ old($key, $s[$key] ?? '') }}" class="input">

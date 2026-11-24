@@ -21,7 +21,7 @@ class Setting extends Model
 
     public const DEFAULTS = [
         'business_name' => 'Sabs Pastries',
-        'tagline' => 'Cakes, cupcakes, doughnuts and sweet treats, made with love',
+        'tagline' => 'A little sweetness, made with love',
         'phone' => '+44 7846 796313',
         'phone_2' => '+233 54 372 0244',
         'phone_2_label' => 'Ghana (preorders only)',
@@ -32,7 +32,7 @@ class Setting extends Model
         'instagram' => 'https://www.instagram.com/sabs_pastries',
         'tiktok' => 'https://www.tiktok.com/@sabs_pastries',
         'threads' => 'https://www.threads.net/@sabs_pastries',
-        'facebook' => '',
+        'facebook' => 'https://www.facebook.com/share/1FPWQVEg1z/?mibextid=wwXIfr',
         'linktree' => 'https://linktr.ee/sabspastries',
         'social_handle' => '@sabs_pastries',
         'logo_path' => '',

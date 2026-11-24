@@ -45,9 +45,9 @@
 
                 <div class="mt-8 flex flex-wrap gap-3">
                     <a href="{{ route('order', ['product' => $product->slug]) }}" class="btn-rose px-8 py-4">{{ site('menu_order_button') }} <x-icon name="arrow-right" class="size-4" /></a>
-                    @if ($whatsapp)<a href="{{ $whatsapp }}" target="_blank" rel="noopener" class="btn-outline px-6 py-4"><x-icon name="whatsapp" class="size-4" /> Ask a question</a>@endif
+                    @if ($whatsapp && site('product_ask_button'))<a href="{{ $whatsapp }}" target="_blank" rel="noopener" class="btn-outline px-6 py-4"><x-icon name="whatsapp" class="size-4" /> {{ site('product_ask_button') }}</a>@endif
                 </div>
-                <p class="mt-4 flex items-center gap-2 text-sm text-ink/55"><x-icon name="clock" class="size-4 text-rose-500" /> Please order at least {{ $product->noticeDays() }} {{ Str::plural('day', $product->noticeDays()) }} ahead.</p>
+                <p class="mt-4 flex items-center gap-2 text-sm text-ink/55"><x-icon name="clock" class="size-4 text-rose-500" /> {{ site('product_notice', ['days' => $product->noticeDays().' '.Str::plural('day', $product->noticeDays())]) }}</p>
 
                 @if ($product->description)
                     <div class="prose-sweet mt-10">{!! $product->html() !!}</div>
@@ -58,7 +58,7 @@
 
     @if ($related->isNotEmpty())
         <section class="page pt-28">
-            <x-section-heading eyebrow="You may also love" title="More *sweet treats*" />
+            <x-section-heading :eyebrow="site('product_related_eyebrow')" :title="site('product_related_title')" />
             <div class="mt-10 grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-4">
                 @foreach ($related as $item)<x-product-card :product="$item" />@endforeach
             </div>
